@@ -6,10 +6,10 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig(
 {
+  site: 'https://Scott-Tatham.github.io',
+  base: '/Aus-Tax-File-Number',
   vite:
   {
     plugins: [tailwindcss()]
-  },
-  site: 'https://Scott-Tatham.github.io',
-  base: '/Aus-Tax-File-Number',
+  }
 });
