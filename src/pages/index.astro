@@ -1,17 +1,57 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="en">
+<html lang="en" data-theme="forest">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Aus TFN</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div
+			class="hero min-h-screen"
+			style="background-image: url(../images/SydneyHarbourHeroSplash.webp);">
+			<div class="hero-overlay"></div>
+			<div class="hero-content text-neutral-content text-center">
+				<div class="max-w-md">
+					<h1 class="mb-5 text-5xl font-bold">Bureaucracy Simplified</h1>
+					<p class="mb-5">
+						We provide a quick and secure method to apply for an Australian Tax File Number so that your employment/studies can commence as soon as possible.
+					</p>
+					<button class="btn btn-primary" onclick="document.getElementById('apply-form').scrollIntoView({ behavior: 'smooth' })">Apply Now!</button>
+				</div>
+			</div>
+		</div>
+		<div id="apply-form" class="hero min-h-screen bg-base-200">
+			<div class="hero-content flex-col lg:flex-row-reverse">
+				<div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+					<form class="card-body">
+						<h2 class="card-title">Request Application</h2>
+						<div class="form-control">
+							<label class="label">
+								<span class="label-text">Full Name</span>
+							</label>
+							<input type="text" placeholder="John Doe" class="input input-bordered" required />
+						</div>
+						<div class="form-control">
+							<label class="label">
+								<span class="label-text">Email</span>
+							</label>
+							<input type="email" placeholder="email@example.com" class="input input-bordered" required />
+						</div>
+						<div class="form-control mt-6">
+							<button class="btn btn-primary">Submit Application</button>
+						</div>
+						<p class="text-sm text-base-content/70 mt-4">
+							Once your request is submitted, we will be in touch with you to gather the necessary information to process your application.
+						</p>
+					</form>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
