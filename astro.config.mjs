@@ -9,5 +9,7 @@ export default defineConfig(
   vite:
   {
     plugins: [tailwindcss()]
-  }
+  },
+  site: 'https://Scott-Tatham.github.io',
+  base: '/Aus-Tax-File-Number',
 });
