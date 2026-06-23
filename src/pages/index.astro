@@ -3,53 +3,380 @@ import "../styles/global.css";
 ---
 
 <html lang="en" data-theme="forest">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Aus TFN</title>
-	</head>
-	<body>
-		<div class="hero min-h-screen hero-background">
-			<div class="hero-overlay"></div>
-			<div class="hero-content text-neutral-content text-center">
-				<div class="max-w-md">
-					<h1 class="mb-5 text-5xl font-bold">Bureaucracy Simplified</h1>
-					<p class="mb-5">
-						We provide a quick and secure method to apply for an Australian Tax File Number so that your employment/studies can commence as soon as possible.
-					</p>
-					<button class="btn btn-primary" onclick="document.getElementById('apply-form').scrollIntoView({ behavior: 'smooth' })">Apply Now!</button>
-				</div>
-			</div>
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="icon" href="/favicon.ico" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+	<title>Aus TFN</title>
+</head>
+<body>
+<div class="hero min-h-screen hero-background">
+	<div class="hero-overlay"></div>
+	<div class="hero-content text-neutral-content text-center">
+		<div class="max-w-md">
+			<h1 class="mb-5 text-5xl font-bold">Bureaucracy Simplified</h1>
+			<p class="mb-5">
+				We provide a quick and secure method to apply for an Australian Tax File Number so that your employment/studies can commence as soon as possible.
+			</p>
+			<button class="btn btn-primary" onclick="document.getElementById('apply-form').scrollIntoView({ behavior: 'smooth' })">Apply Now!</button>
 		</div>
-		<div id="apply-form" class="hero min-h-screen bg-base-200">
-			<div class="hero-content flex-col lg:flex-row-reverse">
-				<div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-					<form class="card-body">
-						<h2 class="card-title">Request Application</h2>
-						<div class="form-control">
-							<label class="label">
-								<span class="label-text">Full Name</span>
-							</label>
-							<input type="text" placeholder="John Doe" class="input input-bordered" required />
-						</div>
-						<div class="form-control">
-							<label class="label">
-								<span class="label-text">Email</span>
-							</label>
-							<input type="email" placeholder="email@example.com" class="input input-bordered" required />
-						</div>
-						<div class="form-control mt-6">
-							<button class="btn btn-primary">Submit Application!</button>
-						</div>
-						<p class="text-sm text-base-content/70 mt-4">
-							Once your request is submitted, we will be in touch with you to gather the necessary information to process your application.
-						</p>
-					</form>
+	</div>
+</div>
+<div id="apply-form" class="hero min-h-screen bg-base-200 py-10">
+	<div class="hero-content flex-col">
+		<div class="card shrink-0 w-full max-w-4xl shadow-2xl bg-base-100">
+			<form class="card-body">
+				<h2 class="card-title mb-6">TFN Application</h2>
+
+				<!-- Section 1: Pre Application -->
+				<div class="mb-8">
+					<h3 class="text-xl font-bold mb-4">1. Pre Application</h3>
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text">Date of Birth *</span>
+						</label>
+						<input type="date" name="dob" class="input input-bordered" required />
+					</div>
 				</div>
-			</div>
+
+				<!-- Section 2: Application History -->
+				<div class="mb-8">
+					<h3 class="text-xl font-bold mb-4">2. Application History</h3>
+					<div class="form-control mb-4">
+						<label class="label cursor-pointer">
+							<span class="label-text">Have you had a TFN before?</span>
+							<input type="radio" name="had_tfn" class="radio radio-primary" value="yes" onchange="toggleConditional('had_tfn_details', this.value === 'yes')" />
+						</label>
+					</div>
+					<div class="form-control mb-4">
+						<label class="label cursor-pointer">
+							<span class="label-text">Have you applied for a TFN before?</span>
+							<input type="radio" name="applied_tfn" class="radio radio-primary" value="yes" onchange="toggleConditional('applied_tfn_details', this.value === 'yes')" />
+						</label>
+					</div>
+					<div class="form-control mb-4">
+						<label class="label cursor-pointer">
+							<span class="label-text">Have you lodged a tax return in Australia?</span>
+							<input type="radio" name="lodged_return" class="radio radio-primary" value="yes" onchange="toggleConditional('lodged_return_details', this.value === 'yes')" />
+						</label>
+					</div>
+
+					<!-- Conditional: Application History Details -->
+					<div id="had_tfn_details" class="hidden pl-4 border-l-4 border-primary mb-4">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Year</span></label>
+							<input type="text" name="tfn_year" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Details</span></label>
+							<textarea name="tfn_details" class="textarea textarea-bordered"></textarea>
+						</div>
+						<div class="form-control mb-3">
+							<label class="label cursor-pointer">
+								<span class="label-text">Are your details the same?</span>
+								<input type="radio" name="details_same" class="radio radio-primary" value="yes" onchange="toggleConditional('details_diff', this.value === 'no')" />
+							</label>
+						</div>
+						<div id="details_diff" class="hidden pl-4 border-l-4 border-secondary">
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Family name at time *</span></label>
+								<input type="text" name="family_name_time" class="input input-bordered" />
+							</div>
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Given name</span></label>
+								<input type="text" name="given_name_time" class="input input-bordered" />
+							</div>
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Other given names</span></label>
+								<input type="text" name="other_given_names_time" class="input input-bordered" />
+							</div>
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Address at time *</span></label>
+								<input type="text" name="address_time" class="input input-bordered" />
+							</div>
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Name of tax agent at time</span></label>
+								<input type="text" name="tax_agent_name" class="input input-bordered" />
+							</div>
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Reason for TFN *</span></label>
+							<select name="tfn_reason" class="select select-bordered" onchange="toggleTfnReason(this.value)">
+								<option value="">Select reason</option>
+								<option value="employer">To give to an employer or payer</option>
+								<option value="tax_return">To lodge an income tax return</option>
+								<option value="bank">To give to a bank or financial institution</option>
+								<option value="family_tax">To claim family tax benefit</option>
+								<option value="loan">To apply for a loan Higher Education Loan Program (HELP)</option>
+								<option value="child_support">For child support payments</option>
+								<option value="abn">To apply for an ABN or register for another business account</option>
+								<option value="services_au">To give to Services Australia</option>
+								<option value="compromised">TFN has or may have been compromised</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+						<div id="services_au_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+							<div class="form-control mb-3">
+								<label class="label cursor-pointer">
+									<span class="label-text">Do you authorise Services Australia to receive TFN from ATO? *</span>
+									<input type="radio" name="auth_services_au" class="radio radio-primary" value="yes" onchange="toggleConditional('services_au_crn', this.value === 'yes')" />
+								</label>
+							</div>
+							<div id="services_au_crn" class="hidden">
+								<div class="form-control mb-3">
+									<label class="label"><span class="label-text">Services Australia Customer Reference Number (CRN)</span></label>
+									<input type="text" name="services_au_crn" class="input input-bordered" />
+								</div>
+							</div>
+						</div>
+						<div id="compromised_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Current TFN</span></label>
+								<input type="text" name="current_tfn" class="input input-bordered" />
+							</div>
+						</div>
+						<div id="other_reason_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+							<div class="form-control mb-3">
+								<label class="label"><span class="label-text">Other reason</span></label>
+								<input type="text" name="other_reason" class="input input-bordered" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Section 3: TFN Recipient Details -->
+				<div class="mb-8">
+					<h3 class="text-xl font-bold mb-4">3. TFN Recipient Details</h3>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Title</span></label>
+						<select name="title" class="select select-bordered" onchange="toggleConditional('other_title', this.value === 'Other')">
+							<option value="">Select title</option>
+							<option value="Dr">Dr</option>
+							<option value="Mr">Mr</option>
+							<option value="Mrs">Mrs</option>
+							<option value="Ms">Ms</option>
+							<option value="Miss">Miss</option>
+							<option value="Rev">Rev</option>
+							<option value="Prof">Prof</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					<div id="other_title" class="hidden">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Other title *</span></label>
+							<input type="text" name="other_title_text" class="input input-bordered" />
+						</div>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Family name *</span></label>
+						<input type="text" name="family_name" class="input input-bordered" required />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">First name</span></label>
+						<input type="text" name="first_name" class="input input-bordered" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Other given names</span></label>
+						<input type="text" name="other_given_names" class="input input-bordered" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Gender *</span></label>
+						<select name="gender" class="select select-bordered" required>
+							<option value="">Select gender</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Indeterminate">Indeterminate</option>
+						</select>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Do you have a spouse?</span>
+							<input type="radio" name="has_spouse" class="radio radio-primary" value="yes" onchange="toggleConditional('spouse_details', this.value === 'yes')" />
+						</label>
+					</div>
+					<div id="spouse_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Spouse family name *</span></label>
+							<input type="text" name="spouse_family_name" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Spouse given name</span></label>
+							<input type="text" name="spouse_given_name" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Spouse other given names</span></label>
+							<input type="text" name="spouse_other_given_names" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Spouse DOB</span></label>
+							<input type="date" name="spouse_dob" class="input input-bordered" />
+						</div>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Is your address outside Australia?</span>
+							<input type="radio" name="address_outside_aus" class="radio radio-primary" value="yes" onchange="toggleAddressType(this.value === 'yes')" />
+						</label>
+					</div>
+					<div id="address_outside" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Address line 1 *</span></label>
+							<input type="text" name="address_line_1" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Address line 2</span></label>
+							<input type="text" name="address_line_2" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Suburb/town/locality *</span></label>
+							<input type="text" name="suburb" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Country if not Australia *</span></label>
+							<input type="text" name="country" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Address in Australia *</span></label>
+							<input type="text" name="address_in_aus" class="input input-bordered" />
+						</div>
+					</div>
+					<div id="address_inside" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Home address *</span></label>
+							<input type="text" name="home_address" class="input input-bordered" />
+						</div>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Is postal address the same?</span>
+							<input type="radio" name="postal_same" class="radio radio-primary" value="yes" onchange="toggleConditional('postal_address', this.value === 'no')" />
+						</label>
+					</div>
+					<div id="postal_address" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Postal address</span></label>
+							<input type="text" name="postal_address" class="input input-bordered" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Section 4: Taxation Details -->
+				<div class="mb-8">
+					<h3 class="text-xl font-bold mb-4">4. Taxation Details</h3>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Born in Australia? *</span>
+							<input type="radio" name="born_aus" class="radio radio-primary" value="yes" onchange="toggleConditional('born_details', this.value === 'no')" />
+						</label>
+					</div>
+					<div id="born_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Country</span></label>
+							<select name="birth_country" class="select select-bordered">
+								<option value="">Select country</option>
+								<option value="NZ">New Zealand</option>
+								<option value="UK">United Kingdom</option>
+								<option value="US">United States</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Arrival date</span></label>
+							<input type="date" name="arrival_date" class="input input-bordered" />
+						</div>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Are you an Australian resident for tax purposes? *</span>
+							<input type="radio" name="tax_resident" class="radio radio-primary" value="yes" />
+						</label>
+					</div>
+					<div class="form-control mb-3">
+						<label class="label cursor-pointer">
+							<span class="label-text">Do you have a registered tax agent?</span>
+							<input type="radio" name="has_tax_agent" class="radio radio-primary" value="yes" onchange="toggleConditional('tax_agent_details', this.value === 'yes')" />
+						</label>
+					</div>
+					<div id="tax_agent_details" class="hidden pl-4 border-l-4 border-secondary mb-3">
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Name</span></label>
+							<input type="text" name="tax_agent_name" class="input input-bordered" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Phone number (10 digits) *</span></label>
+							<input type="tel" name="tax_agent_phone" class="input input-bordered" pattern="[0-9]{10}" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Registration number (8 digits) *</span></label>
+							<input type="text" name="tax_agent_reg" class="input input-bordered" pattern="[0-9]{8}" />
+						</div>
+						<div class="form-control mb-3">
+							<label class="label"><span class="label-text">Contact person's name</span></label>
+							<input type="text" name="tax_agent_contact" class="input input-bordered" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Section 5: Contact Details -->
+				<div class="mb-8">
+					<h3 class="text-xl font-bold mb-4">5. Contact Details</h3>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Mobile number (10 digits)</span></label>
+						<input type="tel" name="mobile" class="input input-bordered" pattern="[0-9]{10}" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Landline number (10 digits)</span></label>
+						<input type="tel" name="landline" class="input input-bordered" pattern="[0-9]{10}" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Email address</span></label>
+						<input type="email" name="email" class="input input-bordered" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Contact person's name</span></label>
+						<input type="text" name="contact_person" class="input input-bordered" />
+					</div>
+					<div class="form-control mb-3">
+						<label class="label"><span class="label-text">Mobile or landline number (10 digits) *</span></label>
+						<input type="tel" name="contact_phone" class="input input-bordered" pattern="[0-9]{10}" />
+					</div>
+				</div>
+
+				<div class="form-control mt-6">
+					<button type="submit" class="btn btn-primary">Submit Application!</button>
+				</div>
+				<p class="text-sm text-base-content/70 mt-4">
+					Once your request is submitted, we will be in touch with you to gather the necessary information to process your application.
+				</p>
+			</form>
 		</div>
-	</body>
+	</div>
+</div>
+
+<script>
+	function toggleConditional(elementId, show) {
+		const element = document.getElementById(elementId);
+		if (element) {
+			if (show) {
+				element.classList.remove('hidden');
+			} else {
+				element.classList.add('hidden');
+			}
+		}
+	}
+
+	function toggleAddressType(isOutside) {
+		toggleConditional('address_outside', isOutside);
+		toggleConditional('address_inside', !isOutside);
+	}
+
+	function toggleTfnReason(reason) {
+		toggleConditional('services_au_details', reason === 'services_au');
+		toggleConditional('compromised_details', reason === 'compromised');
+		toggleConditional('other_reason_details', reason === 'other');
+	}
+</script>
+</body>
 </html>
