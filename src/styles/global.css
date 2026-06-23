@@ -3,3 +3,7 @@
 {
     themes: light --default, dark --prefersdark, forest;
 }
+
+.hero-background {
+    background-image: url('../images/SydneyHarbourHeroSplash.webp');
+}
